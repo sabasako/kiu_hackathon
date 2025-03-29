@@ -61,11 +61,6 @@ export default async function ImagePage() {
         "Georgian cavalry scouts watching enemy movements from a ridge, detailed medieval armor and weaponry, moody cloudy sky.",
       apiKey: apiKeys[8],
     },
-    {
-      prompt:
-        "Medieval Georgian feast celebration after military victory, tables filled with traditional food, musicians playing, soldiers rejoicing.",
-      apiKey: apiKeys[9],
-    },
   ];
 
   const fetchImage = async (
@@ -84,7 +79,7 @@ export default async function ImagePage() {
             instances: [{ prompt: task.prompt }],
             parameters: {
               sampleCount: 1,
-              aspectRatio: "4:3",
+              aspectRatio: "9:16",
             },
           }),
           cache: "no-store",
@@ -149,7 +144,7 @@ export default async function ImagePage() {
             <img
               src={img.url}
               alt={`Generated Image ${img.promptIndex + 1}`}
-              className="w-full h-64 object-cover"
+              className="object-cover"
             />
             <div className="p-4 bg-white">
               <h3 className="font-bold text-lg mb-2">

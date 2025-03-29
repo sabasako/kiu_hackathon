@@ -8,16 +8,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-
-// Properly implementing the Button component
-import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import xSymbol from "../app/assets/x-symbol-svgrepo-com.svg";
 import { Button } from "./ui/button";
 import { VideoPreview } from "./video-preview";
+import handleVideoGenerate from "@/actions";
 
 export function Content() {
   const [files, setFiles] = useState<File[]>([]);
@@ -121,11 +116,19 @@ export function Content() {
 
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
-      console.log("Study Material:", studyMaterial);
-      console.log("Files:", files);
+
+      const { images } = await handleVideoGenerate(studyMaterial);
+
+      if (!images) {
+        setError("Failed to generate video.");
+        return;
+      }
+
+      console.log(images);
+
       setValidationError(false);
     } catch (err) {
+      console.error("Error:", err);
       setError("An error occurred while processing your request.");
     } finally {
       setLoading(false);
