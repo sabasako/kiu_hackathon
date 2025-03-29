@@ -1,6 +1,7 @@
 "use server";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { uploadBase64Image } from "./lib/gcsUploader";
 
 interface GenerateImagePromptsResult {
   response: {
@@ -37,6 +38,21 @@ export default async function handleVideoGenerate(input: string) {
   if (error) {
     throw new Error(error);
   }
+
+  if (!images || images.length === 0) {
+    throw new Error("No images generated.");
+  }
+
+  // const urls = await Promise.all(
+  //   images.map((img, i) => {
+  //     const base64 = img.url.replace(/^data:image\/(png|jpeg);base64,/, "");
+  //     return uploadBase64Image(base64, `image-${Date.now()}-${i}.jpeg`);
+  //   })
+  // );
+
+  // console.log(urls);
+
+  // console.log(images);
 
   return {
     images,
@@ -102,14 +118,10 @@ async function getImages(prompts: string[]) {
     return { error: "No API keys found." };
   }
 
-  console.log("prompts", prompts);
-
   const promptsWithKeys = prompts.map((prompt, index) => ({
     prompt,
     apiKey: apiKeys[index],
   }));
-
-  console.log("promptsWithKeys", promptsWithKeys);
 
   const fetchImage = async (
     task: { prompt: string; apiKey: string },
