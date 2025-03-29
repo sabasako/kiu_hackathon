@@ -107,8 +107,20 @@ export function FileUpload() {
           </div>
         </div>
 
-        <Button type="submit" className="w-full mt-6" size="lg">
-          Generate Video
+        <Button
+          type="submit"
+          className="w-full mt-6"
+          size="lg"
+          disabled={loading}
+        >
+          {loading ? (
+            <span className="flex items-center">
+              <span className="h-4 w-4 mr-2 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
+              Generating Video...
+            </span>
+          ) : (
+            "Generate Video"
+          )}
         </Button>
       </form>
     </div>

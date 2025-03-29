@@ -1,21 +1,3 @@
-// import { Phone } from "lucide-react";
-
-// export function VideoPreview() {
-//   return (
-//     <div className="relative w-[240px] h-[480px] bg-black rounded-[36px] border-[8px] border-slate-800 shadow-xl overflow-hidden">
-//       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/3 h-6 bg-black rounded-b-xl z-10"></div>
-
-//       {/* Video placeholder */}
-//       <div className="w-full h-full bg-slate-900 flex flex-col items-center justify-center text-slate-400">
-//         <Phone size={48} className="mb-4 opacity-50" />
-//         <p className="text-sm text-center px-6">
-//           Your educational video will appear here after processing
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
 import { Phone } from "lucide-react";
 
 export function VideoPreview() {
