@@ -1,7 +1,6 @@
 import { Phone } from "lucide-react";
 
-export function VideoPreview() {
-  const isLoading = false;
+export function VideoPreview({ isLoading }: { isLoading: boolean }) {
   return (
     <div className="relative w-[280px] h-[560px] bg-black rounded-[36px] border-[8px] border-slate-800 shadow-xl overflow-hidden">
       {/* Phone notch */}

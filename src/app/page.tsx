@@ -1,4 +1,4 @@
-import { FileUpload } from "@/components/file-upload";
+import { Content } from "@/components/content";
 import { VideoPreview } from "@/components/video-preview";
 
 export default function Home() {
@@ -9,23 +9,7 @@ export default function Home() {
           LabHakar AI - Educational Video Generator
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          {/* Left side - Video Preview */}
-          <div className="flex justify-center lg:justify-start ">
-            <VideoPreview />
-          </div>
-
-          {/* Right side - Content Input */}
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 ">
-            <h2 className="text-2xl font-semibold mb-6 text-slate-900 dark:text-slate-50">
-              Create Your Educational Video
-            </h2>
-
-            <div className="space-y-6">
-              <FileUpload />
-            </div>
-          </div>
-        </div>
+        <Content />
       </main>
     </div>
   );
