@@ -16,71 +16,22 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import xSymbol from "../app/assets/x-symbol-svgrepo-com.svg";
-
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
-        icon: "h-9 w-9",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-);
-
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
-
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
-Button.displayName = "Button";
+import { Button } from "./ui/button";
 
 export function FileUpload() {
   const [files, setFiles] = useState<File[]>([]);
   const [studyMaterial, setStudyMaterial] = useState<string>("");
+  const [validationError, setValidationError] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [validationError, setValidationError] = useState(false);
+
   const [isDragging, setIsDragging] = useState(false);
 
-  // Create a ref for the file input and drop zone
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dropZoneRef = useRef<HTMLDivElement>(null);
 
   const addFiles = (newFiles: File[]) => {
-    // Filter only PDF files
     const pdfFiles = newFiles.filter(
       (file) =>
         file.type === "application/pdf" ||
@@ -103,7 +54,6 @@ export function FileUpload() {
   const removeFile = (index: number) => {
     setFiles((prev) => {
       const updatedFiles = prev.filter((_, i) => i !== index);
-      // Set validation error if both files and study material are empty
       if (updatedFiles.length === 0 && !studyMaterial.trim()) {
         setValidationError(true);
       }
@@ -116,7 +66,6 @@ export function FileUpload() {
   ) => {
     const value = e.target.value;
     setStudyMaterial(value);
-    // Reset validation error if text is added, or set it if both are empty
     if (value.trim()) {
       setValidationError(false);
     } else if (!files.length) {
@@ -124,7 +73,6 @@ export function FileUpload() {
     }
   };
 
-  // Drag and drop handlers
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -143,7 +91,6 @@ export function FileUpload() {
     e.preventDefault();
     e.stopPropagation();
 
-    // Only set isDragging to false if we're leaving the drop zone and not entering a child element
     if (
       dropZoneRef.current &&
       !dropZoneRef.current.contains(e.relatedTarget as Node)
@@ -166,40 +113,37 @@ export function FileUpload() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Validate if both study material and files are empty
     if (!studyMaterial.trim() && files.length === 0) {
       setValidationError(true);
       return;
     }
 
     try {
+      setLoading(true);
       console.log("Study Material:", studyMaterial);
       console.log("Files:", files);
-      // Reset validation error on successful submission
       setValidationError(false);
     } catch (err) {
       setError("An error occurred while processing your request.");
+    } finally {
+      setLoading(false);
     }
   }
 
-  // Function to trigger file input click
   const handleBrowseClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
 
-  // Get the error styles for borders
   const getErrorBorderStyle = () => {
     return validationError ? "border-[#FA4D4D]" : "";
   };
 
-  // Get the error styles for text
   const getErrorTextStyle = () => {
     return validationError ? "text-[#FA4D4D]" : "";
   };
 
-  // Get drop zone border style
   const getDropZoneBorderStyle = () => {
     if (isDragging) {
       return "border-primary";
@@ -210,7 +154,6 @@ export function FileUpload() {
     return "border-slate-300 dark:border-slate-700";
   };
 
-  // Get drop zone hover style
   const getDropZoneHoverStyle = () => {
     if (isDragging) {
       return "hover:border-primary";
@@ -229,6 +172,7 @@ export function FileUpload() {
             Study Material
           </Label>
           <Textarea
+            disabled={loading}
             value={studyMaterial}
             onChange={handleStudyMaterialChange}
             id="study-material"
@@ -314,8 +258,8 @@ export function FileUpload() {
                   : "Drag and drop your PDF files here or click to browse"}
               </p>
 
-              {/* File input implementation */}
               <input
+                disabled={loading}
                 ref={fileInputRef}
                 id="file-upload"
                 type="file"
