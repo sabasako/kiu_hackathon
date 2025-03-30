@@ -34,6 +34,11 @@ export default async function handleVideoGenerate(input: string) {
     throw new Error("Failed to generate content.");
   }
 
+  if (voiceoverText) {
+    console.log("--- Voiceover Script ---");
+    console.log(voiceoverText);
+  }
+
   const { error, images } = await getImages(imagePromptsText.split("\n\n"));
 
   if (error) {
@@ -63,10 +68,28 @@ async function generateVoiceover(
   model: any
 ): Promise<string | null> {
   const prompt: string = `Create a voiceover script explaining the following topic: "${topic}".
-        The script should be designed for elementary school students.
-        It needs to be approximately 40 seconds long when read at a normal pace.
-        Focus on simple explanations and engaging language.
-        Avoid jargon. Make it sound like a friendly teacher is explaining it.`;
+  The script should be designed for elementary school students.
+  It needs to be approximately 40 seconds long when read at a normal pace.
+  Focus on simple explanations and engaging language.
+  Avoid jargon. Make it sound like a friendly teacher is explaining it.
+  Divide the script into 10 sections, each lasting amount of time necessery for reading that text.
+  adjust the timing to ensure good pacing and clarity.
+  Each section should be concise and easy to understand.
+  Format the output EXACTLY as a Json file with the following structure:
+  {
+      "script": [
+          {
+              "text": "[Text for section 1]",
+              "time": 3
+          },
+          {
+              "text": "[Text for section 2]",
+              "time": 5,
+          },
+          ...
+          {
+              "text": "[Text for section 10]",
+              "time": 4`;
 
   try {
     const result: GenerateContentResult = await model.generateContent(prompt);
