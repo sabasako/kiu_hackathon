@@ -7,19 +7,17 @@ export function createVideoJson(
 ) {
   const combinedData = urls.map((url) => {
     const voiceEntry = voiceJson[url.promptIndex];
-
     return {
       url: url.url,
       prompt: url.promptIndex,
       text: voiceEntry ? voiceEntry.text : "",
-      time: voiceEntry ? voiceEntry.time : 0,
+      time: voiceEntry ? voiceEntry.time + 2 : 2,
     };
   });
 
   const textClips = combinedData.map((item, index) => {
     const previousItems = combinedData.slice(0, index);
     const start = previousItems.reduce((sum, prev) => sum + prev.time, 0);
-
     return {
       asset: {
         type: "text",
@@ -42,7 +40,6 @@ export function createVideoJson(
   const imageClips = combinedData.map((item, index) => {
     const previousItems = combinedData.slice(0, index);
     const start = previousItems.reduce((sum, prev) => sum + prev.time, 0);
-
     const effects = [
       "zoomIn",
       "zoomOut",
@@ -58,10 +55,8 @@ export function createVideoJson(
       "slideDown",
       "slideRight",
     ];
-
     const effect = effects[index % effects.length];
     const transition = transitions[index % transitions.length];
-
     return {
       asset: {
         type: "image",
@@ -74,6 +69,20 @@ export function createVideoJson(
     };
   });
 
+  const ttsClips = combinedData.map((item, index) => {
+    const previousItems = combinedData.slice(0, index);
+    const start = previousItems.reduce((sum, prev) => sum + prev.time, 0);
+    return {
+      asset: {
+        type: "text-to-speech",
+        text: item.text,
+        voice: "Matthew",
+      },
+      start: start,
+      length: item.time,
+    };
+  });
+
   const videoJson = {
     timeline: {
       background: "#000000",
@@ -83,6 +92,9 @@ export function createVideoJson(
         },
         {
           clips: imageClips,
+        },
+        {
+          clips: ttsClips,
         },
       ],
     },

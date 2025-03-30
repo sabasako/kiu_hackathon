@@ -1,0 +1,255 @@
+{
+  "timeline": {
+    "background": "#000000",
+    "tracks": [
+      {
+        "clips": [
+          {
+            "asset": {
+              "type": "text",
+              "text": "Hi everyone! Today, we're learning about the Didgori Battle!",
+              "font": { "family": "Arial", "size": 40, "color": "#ffffff" },
+              "alignment": { "vertical": "bottom", "horizontal": "center" }
+            },
+            "start": 0,
+            "length": 3
+          },
+          {
+            "asset": {
+              "type": "text",
+              "text": "It happened in Georgia, a country in Europe, a long, long time ago, in 1121.",
+              "font": { "family": "Arial", "size": 40, "color": "#ffffff" },
+              "alignment": { "vertical": "bottom", "horizontal": "center" }
+            },
+            "start": 3,
+            "length": 4
+          },
+          {
+            "asset": {
+              "type": "text",
+              "text": "Georgia's king, David the Builder, was facing a powerful enemy, the Seljuk Turks.",
+              "font": { "family": "Arial", "size": 40, "color": "#ffffff" },
+              "alignment": { "vertical": "bottom", "horizontal": "center" }
+            },
+            "start": 7,
+            "length": 5
+          },
+          {
+            "asset": {
+              "type": "text",
+              "text": "The Turks were trying to conquer Georgia, but David was a brave and clever king!",
+              "font": { "family": "Arial", "size": 40, "color": "#ffffff" },
+              "alignment": { "vertical": "bottom", "horizontal": "center" }
+            },
+            "start": 12,
+            "length": 4
+          },
+          {
+            "asset": {
+              "type": "text",
+              "text": "He gathered his army, ready to defend his country.",
+              "font": { "family": "Arial", "size": 40, "color": "#ffffff" },
+              "alignment": { "vertical": "bottom", "horizontal": "center" }
+            },
+            "start": 16,
+            "length": 3
+          },
+          {
+            "asset": {
+              "type": "text",
+              "text": "The battle took place near a place called Didgori.",
+              "font": { "family": "Arial", "size": 40, "color": "#ffffff" },
+              "alignment": { "vertical": "bottom", "horizontal": "center" }
+            },
+            "start": 19,
+            "length": 3
+          },
+          {
+            "asset": {
+              "type": "text",
+              "text": "King David used some really smart battle strategies.",
+              "font": { "family": "Arial", "size": 40, "color": "#ffffff" },
+              "alignment": { "vertical": "bottom", "horizontal": "center" }
+            },
+            "start": 22,
+            "length": 3
+          },
+          {
+            "asset": {
+              "type": "text",
+              "text": "His army fought bravely and won a huge victory against the Turks!",
+              "font": { "family": "Arial", "size": 40, "color": "#ffffff" },
+              "alignment": { "vertical": "bottom", "horizontal": "center" }
+            },
+            "start": 25,
+            "length": 4
+          }
+        ]
+      },
+      {
+        "clips": [
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-044a9e99-550d-4863-9969-a6e52089c0c4-0.jpeg"
+            },
+            "start": 0,
+            "length": 3,
+            "effect": "zoomIn"
+          },
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-071fe090-8291-44ed-ad86-8a6424ae001d-1.jpeg"
+            },
+            "start": 3,
+            "length": 4,
+            "effect": "zoomOut",
+            "transition": { "in": "slideUp" }
+          },
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-f9defae6-29cb-4ae9-8f08-21fbeeca48c3-2.jpeg"
+            },
+            "start": 7,
+            "length": 5,
+            "effect": "slideRight",
+            "transition": { "in": "fade" }
+          },
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-accff4d8-06f2-46c6-b388-455fe7e7aae2-3.jpeg"
+            },
+            "start": 12,
+            "length": 4,
+            "effect": "slideLeft",
+            "transition": { "in": "slideDown" }
+          },
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-f7d945ac-0baf-42a4-8a94-2ff31975f46a-4.jpeg"
+            },
+            "start": 16,
+            "length": 3,
+            "effect": "slideUp",
+            "transition": { "in": "slideRight" }
+          },
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-4650fe6e-58c8-4843-aece-d785efb682cf-5.jpeg"
+            },
+            "start": 19,
+            "length": 3,
+            "effect": "slideDown",
+            "transition": { "in": "slideLeft" }
+          },
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-ead507b4-7eaa-4ea9-9bc0-010fa072512a-6.jpeg"
+            },
+            "start": 22,
+            "length": 3,
+            "effect": "zoomIn",
+            "transition": { "in": "slideUp" }
+          },
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-c1c39ec1-fcea-4b46-b1fa-1d0e0f5e92ba-7.jpeg"
+            },
+            "start": 25,
+            "length": 4,
+            "effect": "zoomOut",
+            "transition": { "in": "fade" }
+          }
+        ]
+      },
+      {
+        "clips": [
+          {
+            "asset": {
+              "type": "text-to-speech",
+              "text": "Hi everyone! Today, we're learning about the Didgori Battle!",
+              "voice": "Matthew"
+            },
+            "start": 0,
+            "length": 3
+          },
+          {
+            "asset": {
+              "type": "text-to-speech",
+              "text": "It happened in Georgia, a country in Europe, a long, long time ago, in 1121.",
+              "voice": "Matthew"
+            },
+            "start": 3,
+            "length": 4
+          },
+          {
+            "asset": {
+              "type": "text-to-speech",
+              "text": "Georgia's king, David the Builder, was facing a powerful enemy, the Seljuk Turks.",
+              "voice": "Matthew"
+            },
+            "start": 7,
+            "length": 5
+          },
+          {
+            "asset": {
+              "type": "text-to-speech",
+              "text": "The Turks were trying to conquer Georgia, but David was a brave and clever king!",
+              "voice": "Matthew"
+            },
+            "start": 12,
+            "length": 4
+          },
+          {
+            "asset": {
+              "type": "text-to-speech",
+              "text": "He gathered his army, ready to defend his country.",
+              "voice": "Matthew"
+            },
+            "start": 16,
+            "length": 3
+          },
+          {
+            "asset": {
+              "type": "text-to-speech",
+              "text": "The battle took place near a place called Didgori.",
+              "voice": "Matthew"
+            },
+            "start": 19,
+            "length": 3
+          },
+          {
+            "asset": {
+              "type": "text-to-speech",
+              "text": "King David used some really smart battle strategies.",
+              "voice": "Matthew"
+            },
+            "start": 22,
+            "length": 3
+          },
+          {
+            "asset": {
+              "type": "text-to-speech",
+              "text": "His army fought bravely and won a huge victory against the Turks!",
+              "voice": "Matthew"
+            },
+            "start": 25,
+            "length": 4
+          }
+        ]
+      }
+    ]
+  },
+  "output": {
+    "format": "mp4",
+    "size": { "width": 720, "height": 1280 },
+    "fps": 30
+  }
+}

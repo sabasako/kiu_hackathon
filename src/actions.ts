@@ -35,6 +35,8 @@ export default async function handleVideoGenerate(input: string) {
     throw new Error("Failed to generate content.");
   }
 
+  console.log("Ai returned answer");
+
   const cleanJSON = voiceoverText
     .replace(/```json\n/, "")
     .replace(/\n```\n/, "")
@@ -52,6 +54,8 @@ export default async function handleVideoGenerate(input: string) {
   if (!images || images.length === 0) {
     throw new Error("No images generated.");
   }
+
+  console.log("Images Generated");
 
   const urls = await Promise.all(
     images.map(async (img, i) => {
@@ -72,10 +76,6 @@ export default async function handleVideoGenerate(input: string) {
   const video = await createVideo(voiceJson.script, urls);
 
   return {
-    images,
-    urls,
-    voiceover: voiceoverText,
-    voiceJson,
     video,
   };
 }
@@ -89,7 +89,7 @@ async function generateVoiceover(
   It needs to be approximately 40 seconds long when read at a normal pace.
   Focus on simple explanations and engaging language.
   Avoid jargon. Make it sound like a friendly teacher is explaining it.
-  Divide the script into 10 sections, each lasting amount of time necessery for reading that text.
+  Divide the script into 10 sections, each lasting amount of time necessery for reading that text (Minimum 4 seconds).
   adjust the timing to ensure good pacing and clarity.
   Each section should be concise and easy to understand.
   Format the output EXACTLY as a Json file with the following structure:
@@ -241,26 +241,90 @@ async function createVideo(
 ) {
   const inputBody = createVideoJson(voiceJson, urls);
 
-  const headers = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    "x-api-key": "Rx9G8dzhnGneSU39EVxLEH3pA7F89OLV7JRUmEfO",
-  };
+  try {
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "x-api-key": "Rx9G8dzhnGneSU39EVxLEH3pA7F89OLV7JRUmEfO",
+    };
 
-  fetch("https://api.shotstack.io/edit/{version}/render", {
-    method: "POST",
-    body: JSON.stringify(inputBody),
-    headers: headers,
-  })
-    .then(function (res) {
-      console.log(res);
-
-      return res.json();
-    })
-    .then(function (body) {
-      return body;
-    })
-    .catch(function (error) {
-      console.error("Error in video creation process:", error);
+    const response = await fetch("https://api.shotstack.io/edit/stage/render", {
+      method: "POST",
+      body: JSON.stringify(inputBody),
+      headers: headers,
     });
+
+    const body = await response.json();
+    if (!response.ok) {
+      throw new Error(`Error: ${body.message || "Failed to create video"}`);
+    }
+
+    const renderId = body.response.id;
+    console.log(`Render job submitted successfully. ID: ${renderId}`);
+
+    const videoData = await pollRenderStatus(renderId, headers);
+    return { videoData, inputBody };
+  } catch (error) {
+    console.error("Error in video creation process:", error);
+    throw error;
+  }
+}
+
+async function pollRenderStatus(
+  renderId: string,
+  headers: { [key: string]: string }
+) {
+  const maxAttempts = 60; // Maximum number of polling attempts
+  const pollingInterval = 500; // Poll every 0.5 seconds
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    try {
+      console.log(
+        `Polling render status (attempt ${attempt + 1}/${maxAttempts})...`
+      );
+
+      const statusResponse = await fetch(
+        `https://api.shotstack.io/edit/stage/render/${renderId}`,
+        {
+          method: "GET",
+          headers: headers,
+        }
+      );
+
+      const statusData = await statusResponse.json();
+
+      if (!statusResponse.ok) {
+        throw new Error(
+          `Error checking status: ${statusData.message || "Unknown error"}`
+        );
+      }
+
+      const status = statusData.response.status;
+      console.log(`Current status: ${status}`);
+
+      if (status === "done") {
+        console.log("Video processing complete!");
+        return {
+          success: true,
+          message: "Video ready",
+          response: statusData.response,
+          videoUrl: statusData.response.url,
+          renderId: renderId,
+        };
+      }
+
+      if (status === "failed") {
+        throw new Error("Video rendering failed");
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, pollingInterval));
+    } catch (error) {
+      console.error("Error during polling:", error);
+      throw error;
+    }
+  }
+
+  throw new Error(
+    "Maximum polling attempts reached. Video processing timeout."
+  );
 }

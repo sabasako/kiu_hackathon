@@ -23,11 +23,14 @@ export function Content() {
   const [error, setError] = useState<string | null>(null);
 
   const [isDragging, setIsDragging] = useState(false);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dropZoneRef = useRef<HTMLDivElement>(null);
 
-  console.log(error);
+  if (error) {
+    console.log(error);
+  }
 
   const addFiles = (newFiles: File[]) => {
     const pdfFiles = newFiles.filter(
@@ -119,20 +122,19 @@ export function Content() {
     try {
       setLoading(true);
 
-      const { images, urls, voiceover, voiceJson, video } =
-        await handleVideoGenerate(studyMaterial);
+      const {
+        video: { inputBody, videoData },
+      } = await handleVideoGenerate(studyMaterial);
+      console.log(videoData);
 
-      if (!images) {
+      console.log(JSON.stringify(inputBody));
+
+      if (!videoData) {
         setError("Failed to generate video.");
         return;
       }
 
-      console.log({ images });
-      console.log({ voiceover });
-      console.log({ urls });
-      console.log({ voiceJson: voiceJson.script });
-
-      console.log(video);
+      setVideoUrl(videoData.videoUrl);
 
       setValidationError(false);
     } catch (err) {
@@ -180,7 +182,7 @@ export function Content() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
       <div className="flex justify-center lg:justify-start ">
-        <VideoPreview isLoading={loading} />
+        <VideoPreview videoUrl={videoUrl} isLoading={loading} />
       </div>
 
       <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 ">
