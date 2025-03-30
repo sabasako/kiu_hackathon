@@ -27,6 +27,8 @@ export function Content() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dropZoneRef = useRef<HTMLDivElement>(null);
 
+  console.log(error);
+
   const addFiles = (newFiles: File[]) => {
     const pdfFiles = newFiles.filter(
       (file) =>

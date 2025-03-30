@@ -1,4 +1,4 @@
-import { Layers2, Phone } from "lucide-react";
+import { Layers2 } from "lucide-react";
 
 export function VideoPreview({ isLoading }: { isLoading: boolean }) {
   return (
