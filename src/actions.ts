@@ -245,7 +245,7 @@ async function createVideo(
     const headers = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      "x-api-key": "Rx9G8dzhnGneSU39EVxLEH3pA7F89OLV7JRUmEfO",
+      "x-api-key": "Wcs92SWvgv42PJyLemH47hWZUAZldbgNoWylm67n",
     };
 
     const response = await fetch("https://api.shotstack.io/edit/stage/render", {

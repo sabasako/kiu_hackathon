@@ -11,7 +11,7 @@ export function createVideoJson(
       url: url.url,
       prompt: url.promptIndex,
       text: voiceEntry ? voiceEntry.text : "",
-      time: voiceEntry ? voiceEntry.time + 2 : 2,
+      time: voiceEntry ? voiceEntry.time + 1 : 4,
     };
   });
 
