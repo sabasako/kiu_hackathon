@@ -6,8 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
-import Image from "next/image";
-import xSymbol from "../app/assets/x-symbol-svgrepo-com.svg";
 import { Button } from "./ui/button";
 import { VideoPreview } from "./video-preview";
 import handleVideoGenerate from "@/actions";
@@ -237,12 +235,7 @@ export function Content() {
                             onClick={() => removeFile(index)}
                             className="h-8 w-8 p-0"
                           >
-                            <Image
-                              src={xSymbol}
-                              width={14}
-                              height={14}
-                              alt="X Symbol"
-                            />
+                            X
                           </Button>
                         </Card>
                       ))}
