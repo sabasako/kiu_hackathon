@@ -1,7 +1,5 @@
 "use client";
 
-// import type React from "react";
-
 import { useState, useRef } from "react";
 import { Upload, FileText } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
