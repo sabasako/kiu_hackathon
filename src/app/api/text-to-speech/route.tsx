@@ -7,7 +7,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Text is required" }, { status: 400 });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY0;
+    const apiKey = process.env.TTS_KEY0;
     if (!apiKey) {
       return NextResponse.json(
         { error: "API key is missing" },

@@ -37,6 +37,10 @@ export default async function handleVideoGenerate(input: string) {
   if (voiceoverText) {
     console.log("--- Voiceover Script ---");
     console.log(voiceoverText);
+    let voiceoverTextToParse = voiceoverText.script
+      .map((entry: any) => entry.text)
+      .join(" ");
+    console.log(voiceoverTextToParse);
   }
 
   const { error, images } = await getImages(imagePromptsText.split("\n\n"));
