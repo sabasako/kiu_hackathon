@@ -1,4 +1,4 @@
-import { Phone } from "lucide-react";
+import { Layers2, Phone } from "lucide-react";
 
 export function VideoPreview({ isLoading }: { isLoading: boolean }) {
   return (
@@ -33,7 +33,8 @@ export function VideoPreview({ isLoading }: { isLoading: boolean }) {
           </div>
         ) : (
           <>
-            <Phone size={48} className="mb-4 opacity-50" />
+            {/* <Phone size={48} className="mb-4 opacity-50" /> */}
+            <Layers2 size={48} className="mb-4 opacity-50" />
             <p className="text-sm text-center px-6">
               Your educational video will appear here after processing
             </p>

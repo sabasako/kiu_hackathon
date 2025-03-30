@@ -117,14 +117,20 @@ export function Content() {
     try {
       setLoading(true);
 
-      const { images } = await handleVideoGenerate(studyMaterial);
+      const { images, urls, voiceover, voiceJson, video } =
+        await handleVideoGenerate(studyMaterial);
 
       if (!images) {
         setError("Failed to generate video.");
         return;
       }
 
-      console.log(images);
+      console.log({ images });
+      console.log({ voiceover });
+      console.log({ urls });
+      console.log({ voiceJson: voiceJson.script });
+
+      console.log(video);
 
       setValidationError(false);
     } catch (err) {

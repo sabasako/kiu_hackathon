@@ -1,0 +1,112 @@
+{
+  "timeline": {
+    "tracks": [
+      {
+        "clips": [
+          {
+            "asset": {
+              "type": "caption",
+              "src": "alias://voiceover",
+              "font": {
+                "color": "#ffffff",
+                "family": "Montserrat ExtraBold",
+                "size": 30,
+                "lineHeight": 0.8
+              },
+              "margin": {
+                "top": 0.25
+              }
+            },
+            "start": 0,
+            "length": "end"
+          }
+        ]
+      },
+      {
+        "clips": [
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-a4d82895-8d7e-4b22-a2c1-82b8be09a769-0.jpeg"
+            },
+            "start": 0,
+            "length": 4,
+            "fit": "cover",
+            "transition": {
+              "in": "fade",
+              "out": "fade"
+            }
+          },
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-ac693517-7ed6-44bf-ad42-a94232279746-1.jpeg"
+            },
+            "start": 4,
+            "length": 5,
+            "fit": "cover",
+            "transition": {
+              "in": "fade",
+              "out": "fade"
+            }
+          },
+          {
+            "asset": {
+              "type": "image",
+              "src": "https://storage.googleapis.com/kiu_hackathon/uploads/image-40c57281-1772-4645-8a37-1f426e54e1ad-2.jpeg"
+            },
+            "start": 9,
+            "length": 4,
+            "fit": "cover",
+            "transition": {
+              "in": "fade",
+              "out": "fade"
+            }
+          }
+        ]
+      },
+      {
+        "clips": [
+          {
+            "alias": "voiceover",
+            "asset": {
+              "type": "text-to-speech",
+              "text": "Hi everyone! Today's history lesson is about the Battle of Didgori!",
+              "voice": "Joanna"
+            },
+            "start": 0,
+            "length": 4
+          },
+          {
+            "alias": "voiceover",
+            "asset": {
+              "type": "text-to-speech",
+              "text": "It happened in Georgia, a country in the Caucasus mountains, a long, long time ago.",
+              "voice": "Joanna"
+            },
+            "start": 4,
+            "length": 5
+          },
+          {
+            "alias": "voiceover",
+            "asset": {
+              "type": "text-to-speech",
+              "text": "In 1121, Georgia was fighting against a powerful enemy, the Seljuk Turks.",
+              "voice": "Joanna"
+            },
+            "start": 9,
+            "length": 4
+          }
+        ]
+      }
+    ]
+  },
+  "output": {
+    "format": "mp4",
+    "fps": 25,
+    "size": {
+      "width": 720,
+      "height": 1280
+    }
+  }
+}
