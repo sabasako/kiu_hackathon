@@ -1,5 +1,4 @@
 import { Content } from "@/components/content";
-import { VideoPreview } from "@/components/video-preview";
 
 export default function Home() {
   return (

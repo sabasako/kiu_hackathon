@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { Phone } from "lucide-react";
 
 // export function VideoPreview({ isLoading }: { isLoading: boolean }) {
@@ -45,6 +46,9 @@
 // }
 
 import { Phone } from "lucide-react";
+=======
+import { Layers2 } from "lucide-react";
+>>>>>>> 47cda5a60a94da2560963842f6c755935b859177
 
 export function VideoPreview({ isLoading }: { isLoading: boolean }) {
   return (
@@ -78,6 +82,7 @@ export function VideoPreview({ isLoading }: { isLoading: boolean }) {
             </div>
           </div>
         ) : (
+<<<<<<< HEAD
           <video className="w-full h-full" controls>
             <source
               src="https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/2w0o0bc7yb/08772e7b-db8b-4cc7-908a-2e4d22febbe8.mp4"
@@ -85,6 +90,15 @@ export function VideoPreview({ isLoading }: { isLoading: boolean }) {
             />
             Your browser does not support the video tag.
           </video>
+=======
+          <>
+            {/* <Phone size={48} className="mb-4 opacity-50" /> */}
+            <Layers2 size={48} className="mb-4 opacity-50" />
+            <p className="text-sm text-center px-6">
+              Your educational video will appear here after processing
+            </p>
+          </>
+>>>>>>> 47cda5a60a94da2560963842f6c755935b859177
         )}
       </div>
     </div>

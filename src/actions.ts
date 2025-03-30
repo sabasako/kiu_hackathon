@@ -3,6 +3,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { uploadBase64Image } from "./lib/gcsUploader";
 import { randomUUID } from "crypto";
+import { createVideoJson } from "./lib/createVideoJson";
 
 interface GenerateImagePromptsResult {
   response: {
@@ -34,6 +35,7 @@ export default async function handleVideoGenerate(input: string) {
     throw new Error("Failed to generate content.");
   }
 
+<<<<<<< HEAD
   if (voiceoverText) {
     console.log("--- Voiceover Script ---");
     console.log(voiceoverText);
@@ -42,6 +44,15 @@ export default async function handleVideoGenerate(input: string) {
       .join(" ");
     console.log(voiceoverTextToParse);
   }
+=======
+  const cleanJSON = voiceoverText
+    .replace(/```json\n/, "")
+    .replace(/\n```\n/, "")
+    .trim();
+
+  const voiceJson: { script: { text: string; time: number }[] } =
+    JSON.parse(cleanJSON);
+>>>>>>> 47cda5a60a94da2560963842f6c755935b859177
 
   const { error, images } = await getImages(imagePromptsText.split("\n\n"));
 
@@ -54,16 +65,29 @@ export default async function handleVideoGenerate(input: string) {
   }
 
   const urls = await Promise.all(
-    images.map((img, i) => {
+    images.map(async (img, i) => {
       const base64 = img.url.replace(/^data:image\/(png|jpeg);base64,/, "");
-      return uploadBase64Image(base64, `image-${randomUUID()}-${i}.jpeg`);
+      const uploadedUrl = await uploadBase64Image(
+        base64,
+        `image-${randomUUID()}-${i}.jpeg`
+      );
+
+      return {
+        url: uploadedUrl,
+        promptIndex: img.promptIndex as number,
+        promp: img.prompt as string,
+      };
     })
   );
 
-  console.log(urls);
+  const video = await createVideo(voiceJson.script, urls);
 
   return {
     images,
+    urls,
+    voiceover: voiceoverText,
+    voiceJson,
+    video,
   };
 }
 
@@ -217,4 +241,37 @@ async function getImages(prompts: string[]) {
   }
 
   return { images };
+}
+
+async function createVideo(
+  voiceJson: { text: string; time: number }[],
+  urls: {
+    url: string;
+    promptIndex: number;
+  }[]
+) {
+  const inputBody = createVideoJson(voiceJson, urls);
+
+  const headers = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "x-api-key": "Rx9G8dzhnGneSU39EVxLEH3pA7F89OLV7JRUmEfO",
+  };
+
+  fetch("https://api.shotstack.io/edit/{version}/render", {
+    method: "POST",
+    body: JSON.stringify(inputBody),
+    headers: headers,
+  })
+    .then(function (res) {
+      console.log(res);
+
+      return res.json();
+    })
+    .then(function (body) {
+      return body;
+    })
+    .catch(function (error) {
+      console.error("Error in video creation process:", error);
+    });
 }
