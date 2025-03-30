@@ -2,6 +2,7 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { uploadBase64Image } from "./lib/gcsUploader";
+import { randomUUID } from "crypto";
 
 interface GenerateImagePromptsResult {
   response: {
@@ -43,16 +44,14 @@ export default async function handleVideoGenerate(input: string) {
     throw new Error("No images generated.");
   }
 
-  // const urls = await Promise.all(
-  //   images.map((img, i) => {
-  //     const base64 = img.url.replace(/^data:image\/(png|jpeg);base64,/, "");
-  //     return uploadBase64Image(base64, `image-${Date.now()}-${i}.jpeg`);
-  //   })
-  // );
+  const urls = await Promise.all(
+    images.map((img, i) => {
+      const base64 = img.url.replace(/^data:image\/(png|jpeg);base64,/, "");
+      return uploadBase64Image(base64, `image-${randomUUID()}-${i}.jpeg`);
+    })
+  );
 
-  // console.log(urls);
-
-  // console.log(images);
+  console.log(urls);
 
   return {
     images,

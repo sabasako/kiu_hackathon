@@ -20,7 +20,7 @@ export async function uploadBase64Image(
     metadata: {
       contentType: "image/jpeg",
     },
-    public: true,
+    // public: true,
     resumable: false,
   });
 
