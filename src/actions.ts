@@ -35,16 +35,6 @@ export default async function handleVideoGenerate(input: string) {
     throw new Error("Failed to generate content.");
   }
 
-<<<<<<< HEAD
-  if (voiceoverText) {
-    console.log("--- Voiceover Script ---");
-    console.log(voiceoverText);
-    let voiceoverTextToParse = voiceoverText.script
-      .map((entry: any) => entry.text)
-      .join(" ");
-    console.log(voiceoverTextToParse);
-  }
-=======
   const cleanJSON = voiceoverText
     .replace(/```json\n/, "")
     .replace(/\n```\n/, "")
@@ -52,7 +42,6 @@ export default async function handleVideoGenerate(input: string) {
 
   const voiceJson: { script: { text: string; time: number }[] } =
     JSON.parse(cleanJSON);
->>>>>>> 47cda5a60a94da2560963842f6c755935b859177
 
   const { error, images } = await getImages(imagePromptsText.split("\n\n"));
 
